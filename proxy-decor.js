@@ -1,4 +1,6 @@
 import { xc } from 'xtal-element/lib/XtalCore.js';
+import { eventName } from 'xtal-decor/xtal-decor.js';
+import { camelToLisp } from 'trans-render/lib/camelToLisp.js';
 export class ProxyDecor extends HTMLElement {
     constructor() {
         super(...arguments);
@@ -15,7 +17,16 @@ export class ProxyDecor extends HTMLElement {
     }
 }
 ProxyDecor.is = 'proxy-decor';
-const propActions = [];
+const onSetProxy = ({ self, proxy }) => {
+    proxy.addEventListener(eventName, (e) => {
+        self.dispatchEvent(new CustomEvent(camelToLisp(e.detail.key) + '-changed', {
+            detail: {
+                value: e.detail.value
+            }
+        }));
+    });
+};
+const propActions = [onSetProxy];
 const baseProp = {
     async: true,
     dry: true,

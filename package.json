@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "xtal-element": "0.0.389",
+    "trans-render": "0.0.286",
     "xtal-decor": "0.0.29"
   },
   "author": "",
