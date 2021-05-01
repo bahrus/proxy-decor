@@ -9,7 +9,6 @@ export class ProxyDecor extends HTMLElement {
         this.reactor = new xc.Rx(this);
     }
     connectedCallback() {
-        this.style.display = 'none';
         xc.hydrate(this, slicedPropDefs);
     }
     onPropChange(n, prop, nv) {
@@ -18,6 +17,7 @@ export class ProxyDecor extends HTMLElement {
 }
 ProxyDecor.is = 'proxy-decor';
 const onSetProxy = ({ self, proxy }) => {
+    self.style.display = 'none';
     proxy.addEventListener(eventName, (e) => {
         self.dispatchEvent(new CustomEvent(camelToLisp(e.detail.key) + '-changed', {
             detail: {
