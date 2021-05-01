@@ -10,6 +10,10 @@
     "type": "git",
     "url": "git+https://github.com/bahrus/proxy-decor.git"
   },
+  "dependencies": {
+    "xtal-element": "0.0.389",
+    "xtal-decor": "0.0.29"
+  },
   "author": "",
   "license": "MIT",
   "bugs": {
