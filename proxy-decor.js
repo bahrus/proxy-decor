@@ -32,7 +32,8 @@ const baseProp = {
     dry: true,
 };
 const objProp1 = {
-    type: Object
+    type: Object,
+    stopReactionsIfFalsy: true,
 };
 const propDefMap = {
     proxy: objProp1,
