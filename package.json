@@ -1,19 +1,40 @@
 {
   "name": "proxy-decor",
   "version": "0.0.3",
-  "description": "",
-  "main": "index.js",
+  "description": "Companion to xtal-decor.  Acts as a thin client to the proxy.",
+  "keywords": [
+    "webcomponents",
+    "webcomponent",
+    "customelements",
+    "customelement",
+    "proxy"
+  ],
+  "main": "proxy-decor.js",
+  "module": "proxy-decor.js",
+  "exports": {
+    ".": "./proxy-decor.js",
+    "./proxy-decor.js": "./proxy-decor.js"
+  },
+  "types": "types.d.ts",
+  "files": [
+    "proxy-decor.*",
+    "types.d.ts"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "package-check": "package-check"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/bahrus/proxy-decor.git"
   },
   "dependencies": {
-    "xtal-element": "0.0.389",
     "trans-render": "0.0.286",
-    "xtal-decor": "0.0.29"
+    "xtal-decor": "0.0.29",
+    "xtal-element": "0.0.389"
+  },
+  "devDependencies": {
+    "@skypack/package-check": "0.2.2"
   },
   "author": "",
   "license": "MIT",

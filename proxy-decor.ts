@@ -1,8 +1,12 @@
 import {xc, IReactor, IInternals, PropAction, PropDef, PropDefMap, ReactiveSurface} from 'xtal-element/lib/XtalCore.js';
 import {eventName} from 'xtal-decor/xtal-decor.js';
 import {camelToLisp} from 'trans-render/lib/camelToLisp.js';
+import {IProxyDecorProps} from './types.d.js';
 
-export class ProxyDecor extends HTMLElement implements ReactiveSurface{
+/**
+ * @element proxy-decor
+ */
+export class ProxyDecor extends HTMLElement implements ReactiveSurface, IProxyDecorProps{
     static is='proxy-decor';
     proxy: any;
     self = this;
@@ -41,3 +45,9 @@ const propDefMap: PropDefMap<P> = {
 const slicedPropDefs = xc.getSlicedPropDefs(propDefMap);
 xc.letThereBeProps(ProxyDecor, slicedPropDefs, 'onPropChange');
 xc.define(ProxyDecor);
+
+declare global {
+    interface HTMLElementTagNameMap {
+        'proxy-decor': ProxyDecor;
+    }
+}
