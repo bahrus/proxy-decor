@@ -30,13 +30,13 @@
   },
   "dependencies": {
     "trans-render": "0.0.286",
-    "xtal-decor": "0.0.29",
+    "xtal-decor": "0.0.30",
     "xtal-element": "0.0.389"
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2"
   },
-  "author": "",
+  "author": "anderson.bruce.b@gmail.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bahrus/proxy-decor/issues"
