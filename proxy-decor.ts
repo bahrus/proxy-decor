@@ -23,7 +23,7 @@ export class ProxyDecor extends HTMLElement implements ReactiveSurface, ProxyDec
         aThis[name] = proxy;
         proxy.addEventListener(eventName, (e: CustomEvent) => {
             const detail = e.detail as ProxyEventDetail;
-            const nameOfEvent = (detail.isVirtualProp ? detail.customAttr : '') + camelToLisp(detail.prop) + '-changed';
+            const nameOfEvent = (detail.isVirtualProp ? detail.customAttr + ":" : '') + camelToLisp(detail.prop) + '-changed';
             self.dispatchEvent(new CustomEvent(nameOfEvent, {
                 detail: {
                     value: e.detail.value,
