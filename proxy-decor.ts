@@ -12,9 +12,6 @@ export class ProxyDecor extends HTMLElement implements ReactiveSurface, ProxyDec
     self = this;
     propActions = propActions;
     reactor: IReactor = new xc.Rx(this);
-    connectedCallback(){
-        this.style.display = 'none';
-    }
     onPropChange(n: string, prop: PropDef, nv: any){
         this.reactor.addToQueue(prop, nv);
     }

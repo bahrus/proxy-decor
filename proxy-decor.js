@@ -11,9 +11,6 @@ export class ProxyDecor extends HTMLElement {
         this.propActions = propActions;
         this.reactor = new xc.Rx(this);
     }
-    connectedCallback() {
-        this.style.display = 'none';
-    }
     onPropChange(n, prop, nv) {
         this.reactor.addToQueue(prop, nv);
     }
