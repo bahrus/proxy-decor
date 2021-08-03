@@ -1,6 +1,6 @@
 {
   "name": "proxy-decor",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Companion to xtal-decor.  Acts as a thin client to the proxy.",
   "keywords": [
     "web-components",
