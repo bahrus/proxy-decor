@@ -23,7 +23,7 @@ export class ProxyDecor extends HTMLElement {
         proxy.addEventListener(eventName, (e) => {
             const detail = e.detail;
             const nameOfEvent = (detail.isVirtualProp ? detail.customAttr + ":" : '') + camelToLisp(detail.prop) + '-changed';
-            self.dispatchEvent(new CustomEvent(nameOfEvent, {
+            aThis.dispatchEvent(new CustomEvent(nameOfEvent, {
                 detail: {
                     value: e.detail.value,
                     proxyEventDetail: detail
