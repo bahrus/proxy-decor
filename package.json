@@ -30,7 +30,7 @@
   },
   "dependencies": {
     "trans-render": "0.0.291",
-    "xtal-decor": "0.0.31",
+    "xtal-decor": "0.0.32",
     "xtal-element": "0.0.419"
   },
   "devDependencies": {

@@ -12,36 +12,29 @@ export class ProxyDecor extends HTMLElement {
         this.reactor = new xc.Rx(this);
     }
     connectedCallback() {
-        xc.mergeProps(this, slicedPropDefs);
+        this.style.display = 'none';
     }
     onPropChange(n, prop, nv) {
         this.reactor.addToQueue(prop, nv);
     }
+    setProxy(proxy, name) {
+        const aThis = this;
+        const originalVal = aThis[name];
+        if (originalVal !== undefined)
+            Object.assign(proxy, originalVal);
+        aThis[name] = proxy;
+        proxy.addEventListener(eventName, (e) => {
+            const detail = e.detail;
+            const nameOfEvent = (detail.isVirtualProp ? detail.customAttr : '') + camelToLisp(detail.prop) + '-changed';
+            self.dispatchEvent(new CustomEvent(nameOfEvent, {
+                detail: {
+                    value: e.detail.value,
+                    proxyEventDetail: detail
+                }
+            }));
+        });
+    }
 }
 ProxyDecor.is = 'proxy-decor';
-const onSetProxy = ({ self, proxy }) => {
-    self.style.display = 'none';
-    proxy.addEventListener(eventName, (e) => {
-        const nameOfEvent = (e.detail.isVirtual ? e.detail.ifWantsToBe : '') + camelToLisp(e.detail.key) + '-changed';
-        self.dispatchEvent(new CustomEvent(nameOfEvent, {
-            detail: {
-                value: e.detail.value
-            }
-        }));
-    });
-};
-const propActions = [onSetProxy];
-const baseProp = {
-    async: true,
-    dry: true,
-};
-const objProp1 = {
-    type: Object,
-    stopReactionsIfFalsy: true,
-};
-const propDefMap = {
-    proxy: objProp1,
-};
-const slicedPropDefs = xc.getSlicedPropDefs(propDefMap);
-xc.letThereBeProps(ProxyDecor, slicedPropDefs, 'onPropChange');
+const propActions = [];
 xc.define(ProxyDecor);

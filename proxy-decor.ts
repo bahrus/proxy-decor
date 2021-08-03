@@ -1,50 +1,44 @@
 import {xc, IReactor, IInternals, PropAction, PropDef, PropDefMap, ReactiveSurface} from 'xtal-element/lib/XtalCore.js';
 import {eventName} from 'xtal-decor/xtal-decor.js';
 import {camelToLisp} from 'trans-render/lib/camelToLisp.js';
-import {IProxyDecorProps} from './types.d.js';
-
+import {ProxyEventDetail} from 'xtal-decor/types.d.js';
+import {ProxyDecorMethods} from './types.d.js';
 /**
  * @element proxy-decor
  */
-export class ProxyDecor extends HTMLElement implements ReactiveSurface, IProxyDecorProps{
+export class ProxyDecor extends HTMLElement implements ReactiveSurface, ProxyDecorMethods{
     static is='proxy-decor';
     proxy: any;
     self = this;
     propActions = propActions;
     reactor: IReactor = new xc.Rx(this);
     connectedCallback(){
-        xc.mergeProps(this, slicedPropDefs);
+        this.style.display = 'none';
     }
     onPropChange(n: string, prop: PropDef, nv: any){
         this.reactor.addToQueue(prop, nv);
     }
+
+    setProxy(proxy: any, name: string){
+        const aThis = this as any;
+        const originalVal = aThis[name];
+        if(originalVal !== undefined) Object.assign(proxy, originalVal);
+        aThis[name] = proxy;
+        proxy.addEventListener(eventName, (e: CustomEvent) => {
+            const detail = e.detail as ProxyEventDetail;
+            const nameOfEvent = (detail.isVirtualProp ? detail.customAttr : '') + camelToLisp(detail.prop) + '-changed';
+            self.dispatchEvent(new CustomEvent(nameOfEvent, {
+                detail: {
+                    value: e.detail.value,
+                    proxyEventDetail: detail
+                }
+            }));
+        });
+    }
 }
 type P = ProxyDecor;
-const onSetProxy = ({self, proxy}: P) => {
-    self.style.display = 'none';
-    proxy.addEventListener(eventName, (e: CustomEvent) => {
-        const nameOfEvent = (e.detail.isVirtual ? e.detail.ifWantsToBe : '') + camelToLisp(e.detail.key) + '-changed';
-        self.dispatchEvent(new CustomEvent(nameOfEvent, {
-            detail: {
-                value: e.detail.value
-            }
-        }));
-    });
-}
-const propActions = [onSetProxy] as PropAction[];
-const baseProp: PropDef = {
-    async: true,
-    dry: true,
-};
-const objProp1: PropDef = {
-    type: Object,
-    stopReactionsIfFalsy: true,
-};
-const propDefMap: PropDefMap<P> = {
-    proxy: objProp1,
-};
-const slicedPropDefs = xc.getSlicedPropDefs(propDefMap);
-xc.letThereBeProps(ProxyDecor, slicedPropDefs, 'onPropChange');
+
+const propActions = [] as PropAction[];
 xc.define(ProxyDecor);
 
 declare global {
