@@ -3,10 +3,10 @@
   "version": "0.0.4",
   "description": "Companion to xtal-decor.  Acts as a thin client to the proxy.",
   "keywords": [
-    "webcomponents",
-    "webcomponent",
-    "customelements",
-    "customelement",
+    "web-components",
+    "web-component",
+    "custom-elements",
+    "custom-element",
     "proxy"
   ],
   "main": "proxy-decor.js",
@@ -29,9 +29,9 @@
     "url": "git+https://github.com/bahrus/proxy-decor.git"
   },
   "dependencies": {
-    "trans-render": "0.0.286",
-    "xtal-decor": "0.0.30",
-    "xtal-element": "0.0.389"
+    "trans-render": "0.0.291",
+    "xtal-decor": "0.0.31",
+    "xtal-element": "0.0.419"
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2"

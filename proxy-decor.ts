@@ -13,7 +13,7 @@ export class ProxyDecor extends HTMLElement implements ReactiveSurface, IProxyDe
     propActions = propActions;
     reactor: IReactor = new xc.Rx(this);
     connectedCallback(){
-        xc.hydrate(this, slicedPropDefs);
+        xc.mergeProps(this, slicedPropDefs);
     }
     onPropChange(n: string, prop: PropDef, nv: any){
         this.reactor.addToQueue(prop, nv);
@@ -23,7 +23,8 @@ type P = ProxyDecor;
 const onSetProxy = ({self, proxy}: P) => {
     self.style.display = 'none';
     proxy.addEventListener(eventName, (e: CustomEvent) => {
-        self.dispatchEvent(new CustomEvent(camelToLisp(e.detail.key) + '-changed', {
+        const nameOfEvent = (e.detail.isVirtual ? e.detail.ifWantsToBe : '') + camelToLisp(e.detail.key) + '-changed';
+        self.dispatchEvent(new CustomEvent(nameOfEvent, {
             detail: {
                 value: e.detail.value
             }
