@@ -5,3 +5,4 @@ export interface ProxyDecorProps{
 export interface ProxyDecorMethods extends HTMLElement{
     setProxy(proxy: any, name: string): void;
 }
+

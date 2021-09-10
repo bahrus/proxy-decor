@@ -3,5 +3,8 @@
       "target": "ESNext",
       "module": "ESNext",
       "strict": true,
-    }
+    },
+    "files": [
+      "proxy-decor.ts"
+    ]
   }

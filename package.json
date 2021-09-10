@@ -29,9 +29,8 @@
     "url": "git+https://github.com/bahrus/proxy-decor.git"
   },
   "dependencies": {
-    "trans-render": "0.0.291",
-    "xtal-decor": "0.0.32",
-    "xtal-element": "0.0.419"
+    "trans-render": "0.0.390",
+    "xtal-decor": "0.0.42"
   },
   "devDependencies": {
     "@skypack/package-check": "0.2.2"
