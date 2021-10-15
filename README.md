@@ -1,5 +1,7 @@
 # proxy-decor
 
+[TODO] Switch to be-decorated, take a more active role in pairing element to proxy.
+
 ```html
 <be-sorted-impl upgrade=* if-wants-to-be=sorted></be-sorted-impl>
 
